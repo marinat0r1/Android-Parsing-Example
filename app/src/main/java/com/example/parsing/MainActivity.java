@@ -19,16 +19,16 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
-    // 'https://jsonplaceholder.typicode.com/todos/1'
-
-    private RequestQueue requestQueue;
+    //private RequestQueue requestQueue;
+    private RequestQueue queue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        requestQueue = Volley.newRequestQueue(this);
+        //requestQueue = Volley.newRequestQueue(this);
+        queue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, "https://jsonplaceholder.typicode.com/todos/1",
                 null, new Response.Listener<JSONObject>() {
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        requestQueue.add(jsonObjectRequest);
+        //requestQueue.add(jsonObjectRequest);
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, "https://jsonplaceholder.typicode.com/todos",
                 null, new Response.Listener<JSONArray>() {
@@ -70,7 +70,11 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        requestQueue.add(jsonArrayRequest);
+        //requestQueue.add(jsonArrayRequest);
+        queue.add(jsonArrayRequest);
 
     }
 }
+
+
+// 'https://jsonplaceholder.typicode.com/todos/1'
